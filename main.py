@@ -13,16 +13,21 @@ TOKEN = "7299969557:AAF-fRqh_EtwLM6Gcc_sfuVJX5G4U51dT8Y"
 dp = Dispatcher()
 
 
-@dp.message(CommandStart())
-async def command_start_handler(message: Message) -> None:
-    await message.answer("Hello! Send me the link of YouTube video You want to download and I'll try to download It!")
 async def video_download(url, chat_id, message):
     yt = YouTube(url)
     stream = yt.streams.get_highest_resolution()
-    stream.download(f'{chat_id}', f"{chat_id}_{yt.title}.mp4")
-    with open(f"{chat_id}/{chat_id}_{yt.title}.mp4", 'rb') as video:
-        await message.reply_video(video=video, caption="Here It is!")
-        os.remove(f"{chat_id}/{chat_id}_{yt.title}.mp4")
+    stream.download(f'TEMP_{chat_id}', f"{chat_id}_{yt.title}.mp4")
+    with open(f"TEMP_{chat_id}/{chat_id}_{yt.title}.mp4", 'r') as video:
+        await message.answer
+        os.remove(f"TEMP_{chat_id}/{chat_id}_{yt.title}.mp4")
+
+
+
+@dp.message(CommandStart())
+async def command_start_handler(message: Message) -> None:
+    await message.answer("Hello! Send me the link of YouTube video You want to download and I'll try to download It!")
+
+
 
 @dp.message()
 async def main_def(message: Message) -> None:
@@ -32,10 +37,9 @@ async def main_def(message: Message) -> None:
     if message.text.startswith('https://youtu.be' or 'https://www.youtube.com/watch?'):
         await message.answer(f"Initializing downloading video: {yt.title} from {yt.author}")
         stream = yt.streams.get_highest_resolution()
-        stream.download(f'{chat_id}', f"{chat_id}_{yt.title}.mp4")
-        with open(f"{chat_id}/{chat_id}_{yt.title}.mp4", 'r') as video:
-            await message.reply_video(video=video, caption="Here It is!")
-            os.remove(f"{chat_id}/{chat_id}_{yt.title}.mp4")
+        stream.download(f'TEMP_{chat_id}', f"{chat_id}_{yt.title}.mp4")
+        await message.answer_video(types.FSInputFile(path=f"TEMP_{chat_id}/{chat_id}_{yt.title}.mp4"), caption="Here It is!")
+        os.remove(f"TEMP_{chat_id}/{chat_id}_{yt.title}.mp4")
     else:
         await message.answer("Invlaid link :(")
 

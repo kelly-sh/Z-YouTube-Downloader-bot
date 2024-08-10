@@ -18,7 +18,6 @@ async def command_start_handler(message: Message) -> None:
     await message.answer("Hello! Send me the link of YouTube video You want to download and I'll try to download It!")
 
 
-
 @dp.message()
 async def main_def(message: Message) -> None:
     chat_id = message.chat.id

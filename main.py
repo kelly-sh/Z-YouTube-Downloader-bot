@@ -38,6 +38,7 @@ async def main_def(message: Message) -> None:
         await message.answer("Что-то пошло не так :(\n"
                              "Попробуй ещё раз")
 
+
     if message.text.startswith("https://youtu.be" or "https://www.youtube.com/watch?"):
         yt = YouTube(message.text)
         video_title = yt.title

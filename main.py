@@ -12,6 +12,7 @@ import sys
 TOKEN = "7299969557:AAF-fRqh_EtwLM6Gcc_sfuVJX5G4U51dT8Y"
 dp = Dispatcher()
 
+
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
     await message.answer("Привет!\n"

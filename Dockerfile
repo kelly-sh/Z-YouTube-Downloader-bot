@@ -7,4 +7,4 @@ WORKDIR /Z_YouTube_Downloader_bot
 RUN pip install --upgrade setuptools
 RUN pip install -r requirements.txt
 RUN chmod 755 .
-CMD [ "python", "main.py    " ]
+CMD [ "python", "main.py" ]

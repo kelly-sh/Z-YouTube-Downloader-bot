@@ -15,22 +15,29 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    await message.answer("Hello! Send me the link of YouTube video You want to download and I'll try to download It!")
+    await message.answer("Привет!\n"
+                         "Я - бот, который скачивает видео с ютуба.\n"
+                         "Просто скинь мне ссылку на видео, и я попробую его скачать :)")
 
+#@dp.message(Command="Donation")
+#async def donation(message: Message) -> None:
+#   await message.answer("Хочешь поддержать проект?\n"
+#"Вот мой Patreon")
 
 @dp.message()
 async def main_def(message: Message) -> None:
     chat_id = message.chat.id
-    url = str(message.text)
-    yt = YouTube(url)
     if message.text.startswith('https://youtu.be' or 'https://www.youtube.com/watch?'):
-        await message.answer(f"Initializing downloading video: {yt.title} from {yt.author}")
+        url = str(message.text)
+        yt = YouTube(url)
+        await message.answer(f"<b>Начинаю загрузку видео</b>: <u>{yt.title}</u> <b>с канала</b>: <u>{yt.author}</u>")
         stream = yt.streams.get_highest_resolution()
-        stream.download(f'TEMP_{chat_id}', f"{chat_id}_{yt.title}.mp4")
-        await message.answer_video(types.FSInputFile(path=f"TEMP_{chat_id}/{chat_id}_{yt.title}.mp4"), caption="Here It is!")
-        os.remove(f"TEMP_{chat_id}/{chat_id}_{yt.title}.mp4")
+        stream.download(output_path="TEMP", filename=f"video_{chat_id}.mp4")
+        await message.answer_video(types.FSInputFile(path=f"TEMP/video_{chat_id}.mp4"), caption="А вот и оно!")
+        os.remove(f"TEMP/video_{chat_id}.mp4")
     else:
-        await message.answer("Invlaid link :(")
+        await message.answer("Что-то пошло не так :(\n"
+                             "Попробуй ещё раз")
 
 async def main() -> None:
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))

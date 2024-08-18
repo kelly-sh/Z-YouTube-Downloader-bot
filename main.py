@@ -23,6 +23,11 @@ async def command_start_handler(message: Message) -> None:
 #   await message.answer("Хочешь поддержать проект?\n"
 #"Вот мой Patreon")
 
+@dp.message(Command("RickRoll"))
+async def rick_roll(message: Message) -> None:
+    YouTube("https://youtu.be/dQw4w9WgXcQ").streams.get_highest_resolution().download(output_path="Rick", filename="Rick_Roll.mp4")
+    await message.answer_video(types.FSInputFile(path="Rick/Rick_Roll.mp4"))
+
 @dp.message()
 async def main_def(message: Message) -> None:
     chat_id = message.chat.id

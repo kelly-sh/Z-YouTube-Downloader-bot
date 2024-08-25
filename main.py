@@ -23,6 +23,11 @@ async def command_start_handler(message: Message) -> None:
 #   await message.answer("Хочешь поддержать проект?\n"
 #"Вот мой Patreon")
 
+@dp.message(Command("RickRoll"))
+async def rick_roll(message: Message) -> None:
+    YouTube("https://youtu.be/dQw4w9WgXcQ").streams.get_highest_resolution().download(output_path="Rick", filename="Rick_Roll.mp4")
+    await message.answer_video(types.FSInputFile(path="Rick/Rick_Roll.mp4"))
+
 @dp.message()
 async def main_def(message: Message) -> None:
     chat_id = message.chat.id
@@ -45,7 +50,7 @@ async def main_def(message: Message) -> None:
         video_author = yt.author
         video_url = message.text
     else:
-        video_title = "NONE"
+        video_title = 'NONE'
         video_author = "NONE"
         video_url = "NONE"
 
@@ -57,6 +62,7 @@ async def main_def(message: Message) -> None:
                  f"#User's nickname = {message.from_user.full_name}\n"
                  f"#Is Premium {message.from_user.is_premium}\n"
                  f"#[QUERY INFO]\n"
+                 f"#Query = {message.text}\n"
                  f"#Video title = '{video_title}'\n"
                  f"#Video author = '{video_author}'\n"
                  f"#Video URL = {video_url}\n"

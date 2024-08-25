@@ -50,7 +50,7 @@ async def main_def(message: Message) -> None:
         video_author = yt.author
         video_url = message.text
     else:
-        video_title = "NONE"
+        video_title = 'NONE'
         video_author = "NONE"
         video_url = "NONE"
 
@@ -62,6 +62,7 @@ async def main_def(message: Message) -> None:
                  f"#User's nickname = {message.from_user.full_name}\n"
                  f"#Is Premium {message.from_user.is_premium}\n"
                  f"#[QUERY INFO]\n"
+                 f"#Query = {message.text}\n"
                  f"#Video title = '{video_title}'\n"
                  f"#Video author = '{video_author}'\n"
                  f"#Video URL = {video_url}\n"
